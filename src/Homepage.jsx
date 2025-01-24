@@ -1,8 +1,13 @@
 import {React,useState} from 'react'
-import { Outlet,Link, Links } from 'react-router-dom';
+import { Outlet,Link,useNavigate } from 'react-router-dom';
+import { cate_list } from './App';
 import axios from 'axios'
+import { useDispatch } from 'react-redux';
 
 const Homepage = () => {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [search,setsearch]=useState('') 
 
@@ -15,19 +20,13 @@ const Homepage = () => {
 
 
   const keyword_search = (e)=>{
-     
      setsearch(e.target.value)
      fetchRecords(e.target.value)
   }
 
-  const fetchRecords = async (val) => {
+  const fetchRecords = async (val) => { //funtion to handle search bar return foodlist and hotel list based on search term
     
     try {
-      
-      // const search_res = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/',{coll_name:'Food_list',term:val?val:"a",type:'filter_query'},
-      //   {
-      //     withCredentials:true
-      //   })
 
       const search_res = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/',{coll_name:'Food_list',type:'filter_query',req:[{'Food_name':val?val:'a'},{'Hotel_name':val?val:'a'}]},
         {
@@ -36,8 +35,6 @@ const Homepage = () => {
         
       const solr_Food_list = search_res.data.Food_name
       const solr_hotellist = search_res.data.Hotel_name
-      console.log('solr_Food_list is',solr_Food_list)
-      console.log('solr_hotellist is',solr_hotellist)
   
       setResarr({food_list:solr_Food_list ? solr_Food_list:[],hotel_list:solr_hotellist ? solr_hotellist:[]})
     }
@@ -47,14 +44,31 @@ const Homepage = () => {
 
   };
 
+  const keyword_order_list = async (option)=>{
+    console.log('selected option is',option)
+    
+    const category = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Food_list',type:'filter_query',req:[{'Category':option?option:'a'}]},
+      {
+        withCredentials:true
+      })
+    
+      const cate_data = category.data.Category
+      console.log('search bar data is',cate_data)
+    
+    dispatch(cate_list(cate_data))
+    setsearch('')
+    
+    navigate('/homepage/orderpage')
+  }
+
   return (
     <div className='border border-black w-full h-full rounded-xl bg-cus-white p-3 md:p-8 overflow-y-scroll scroll-smooth'>
         <nav className='w-[calc(98%)] mx-auto md:h-auto h-12 flex flex-row gap-8 py-2 mb-3 md:mt-0 relative bg-card shadow-card-hl rounded-full'>
           <Link to='/homepage' className='w-1/6 h-auto place-content-center'>
-            <h1 className='w-full md:text-xl text-sm font-bold bg-card shadow-card-hl rounded-full px-3 py-2 ml-4'>Hurry</h1>
+            <h1 className='w-full md:text-xl text-sm font-bold bg-card shadow-card-hl rounded-full px-1 md:px-3 py-2 ml-4'>Hurry</h1>
           </Link>
           <div className='rounded-full md:w-3/6 w-4/6 flex flex-row p-1 bg-card shadow-card-hl md:relative'>
-            <input onChange={(e)=> keyword_search(e)} className='w-[calc(96%)] rounded-full h-full px-3 py-2 md:py-1 focus:outline-none' placeholder='Search...'></input>
+            <input onChange={(e)=> keyword_search(e)} className='w-[calc(96%)] text-xs md:text-base rounded-full h-full px-3 py-2 md:py-1 focus:outline-none' value={search} placeholder='Search...'></input>
             <span className='flex justify-center items-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-7 size-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -66,22 +80,22 @@ const Homepage = () => {
                 <div className='Food w-1/2 h-full p-2 flex flex-col gap-2 rounded-xl overflow-y-scroll'>
                   {resarr.food_list.map((ele,index)=>{
                   return (
-                  <div key ={ele.id} className='w-full flex flex-row p-1 bg-card shadow-card-hl rounded-xl h-16'>
+                  <div key ={ele.id} onClick={()=>keyword_order_list(ele.Category)} className='w-full flex flex-row p-1 bg-card shadow-card-hl rounded-xl min-h-12 md:min-h-16 hover:cursor-pointer'>
                       <img className='hidden md:block w-1/5 h-full rounded-xl' src={ele.Image_url}/>
-                      <div className='w-full md:w-4/5'>
-                        <h1 className='w-full h-1/2 font-semibold'>{ele.Hotel_name}</h1>
-                        <span className='w-full h-1/2 text-xs'>{ele.Food_name}</span>
+                      <div className='w-full md:w-4/5 flex justify-center items-center'>
+                        {/* <h1 className='w-full h-1/2 font-semibold md:text-base text-xs'>{ele.Hotel_name}</h1> */}
+                        <span className='w-full h-1/2 md:text-sm text-xs'>{ele.Food_name}</span>
                       </div> 
                   </div>)})}
                 </div>
-                <div className='Hotel w-1/2 h-full hmt-2 p-2 flex flex-col gap-2 rounded-xl overflow-y-scroll'>
+                <div className='Hotel w-1/2 h-full mt-2 flex flex-col gap-2 rounded-xl overflow-y-scroll'>
                   {resarr.hotel_list.map((ele,index)=>{
                   return (
-                  <div key={ele.id} className='w-full flex flex-row bg-card shadow-card-hl rounded-xl h-12'>
+                  <div key={ele.id} className='w-full flex flex-row bg-card shadow-card-hl rounded-xl min-h-12 max-h-12 md:min-h-16'>
                       {/* <img className='hidden md:block w-1/5 h-full rounded-xl' src='https://foodcategory.s3.eu-north-1.amazonaws.com/paneer_butter_masala.jpeg'/> */}
-                      <div className='w-full md:w-4/5 mx-auto'>
-                        <h1 className='w-full h-1/2 font-semibold text-left'>{ele.Hotel_name}</h1>
-                        <span className='w-full h-1/2 text-xs text-left block mt-2'>{ele.Food_name}</span>
+                      <div className='w-full md:w-4/5 mx-auto flex justify-center items-center'>
+                        <h1 className='w-full h-1/2 md:text-sm text-xs text-center'>{ele.Hotel_name}</h1>
+                        {/* <span className='w-full h-1/2 text-xs text-left block mt-2'>{ele.Food_name}</span> */}
                       </div> 
                   </div>)})}
                 </div>

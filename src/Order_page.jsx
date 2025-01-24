@@ -1,14 +1,19 @@
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {useSelector} from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { added_cart_list } from './App';
 
 const Order_page = () => {
 
   
   const categorylist= useSelector((state)=>state.sel_list.cate_list)
-  console.log('cate_list is',categorylist)
+  const dispatch = useDispatch();
 
-  const arr =[1,2,3]
+  
+  const cart_add = (ele)=>{
+    dispatch(added_cart_list(ele))
+  }
 
   return (
     <div className='w-full flex flex-col gap-5 h-auto md:p-4'>
@@ -29,7 +34,7 @@ const Order_page = () => {
                        {ele.Description}
                    </p>
                    <span className='price w-2/5 h-1/4 text-sm md:text-base text-left place-content-center font-semibold'>{`₹${ele.Price}`}</span>
-                   <button className='price w-3/5 h-1/4 md:p-[2px] p-[0.5px] md:text-sm text-xs rounded-full bg-[#0284c7]/80'>Add</button>
+                   <button onClick={()=>cart_add(ele)} className='price w-3/5 h-1/4 md:p-[2px] p-[0.5px] md:text-sm text-xs rounded-full bg-[#0284c7]/80'>Add</button>
                  </div>
               </div>)})}
             </div> 

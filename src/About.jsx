@@ -61,22 +61,8 @@ const About = () => {
 
   return (
     <div className='flex flex-col gap-7 overflow-hidden md:p-4 h-auto w-full'>
-        {/* <div className='Preference w-full flex flex-row gap-2 p-1 md:p-3 bg-card shadow-card-hl rounded-full'>
-            <div className='Vegeterian w-1/3 border bg-transparent p-2 rounded-full'>
-              <span></span>
-              <h1 className='text-sm md:text-normal'>Vegeterian</h1>
-            </div>
-            <div className='Non-Vegeterian w-1/3 border border-black md:p-2 rounded-full'>
-               <span></span>
-               <h1 className='text-sm md:text-normal'>Non-Veg</h1>
-            </div>
-            <div className='Deserts w-1/3 border border-black md:p-2 rounded-full'>
-               <span></span>
-               <h1 className='text-sm md:text-normal'>Deserts</h1>
-            </div>
-        </div> */}
-        <div className='offer-card rounded-3xl bg-card shadow-card-hl h-auto w-full border border-black overflow-hidden'>
-          <LazyLoadImage className='w-full h-32 md:h-52 object-cover border border-black' src='https://foodcategory.s3.eu-north-1.amazonaws.com/card1.jpeg'/>
+        <div className='offer-card rounded-3xl bg-card shadow-card-hl h-auto w-full overflow-hidden'>
+          <LazyLoadImage className='w-full h-32 md:h-52 object-cover' src='https://foodcategory.s3.eu-north-1.amazonaws.com/card1.jpeg'/>
         </div>
         <div className='choice flex flex-col w-full md:h-auto h-auto bg-card shadow-card-hl p-3 rounded-3xl'>
             <h1 className='text-left text-lg md:text-2xl font-medium'>Categories for you</h1>

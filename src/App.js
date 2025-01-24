@@ -1,10 +1,10 @@
 import './App.css';
-import axios from 'axios';
-import {useState,useEffect} from 'react'
+// import axios from 'axios';
+// import {useState,useEffect} from 'react'
 import Login from './Login';
 import Homepage from './Homepage';
 import Protected_Route from './Protected_Route';
-import {Router,Routes,Route} from 'react-router-dom';
+import {Routes,Route} from 'react-router-dom';
 import About from './About';
 import Contact from './Contact';
 import Order_page from './Order_page';
@@ -18,14 +18,23 @@ import {Provider} from 'react-redux'
 
 const slice = createSlice({
   name:'Test',
-  initialState:{cate_list:[]},
-  reducers: {cate_list(state,action){
+  initialState:{cate_list:[],
+    cart_list:[]},
+  reducers: 
+  {
+    cate_list(state,action){
     state.cate_list = action.payload
-  }
+    },
+    added_cart_list(state,action){
+      state.cart_list.push(action.payload) 
+    },
+    delete_cartlist(state,action){
+      state.cart_list=state.cart_list.filter((ele)=>ele.id!=action.payload)
+    }
   }
 })
 
-export const {cate_list} = slice.actions;
+export const {cate_list,added_cart_list,delete_cartlist} = slice.actions;
 
 
 const store = configureStore({
