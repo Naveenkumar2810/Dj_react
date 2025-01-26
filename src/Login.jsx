@@ -69,16 +69,12 @@ const Login = () => {
           {
             withCredentials:true
           })
-          console.log('Found no error')
-          console.log(response)
-          // console.log(response.status, typeof response.status)
           navigate('/homepage')
         }
     catch (error){
-        console.log(error)
-        console.log(error.response.data.error);
+        // console.log(error.response.data.error);
         setform({...form,error_msg:error.response.data.error})
-        setTimeout(()=>setform({...form,error_msg:null}),[3000])
+        setTimeout(()=>setform({...form,error_msg:null}),[1500])
       };
       
       }

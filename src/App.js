@@ -18,19 +18,38 @@ import {Provider} from 'react-redux'
 
 const slice = createSlice({
   name:'Test',
-  initialState:{cate_list:[],
-    cart_list:[]},
+  initialState:{
+    cate_list:[], //list for viewing in order page after search category filter in solr
+    cart_list:[] //list for viewing cart list in cart page
+  },
   reducers: 
   {
     cate_list(state,action){
-    state.cate_list = action.payload
+      state.cate_list = action.payload
     },
-    added_cart_list(state,action){
-      state.cart_list.push(action.payload) 
-    },
+
     delete_cartlist(state,action){
-      state.cart_list=state.cart_list.filter((ele)=>ele.id!=action.payload)
-    }
+      state.cart_list = state.cart_list.filter((ele)=>ele.id!==action.payload)
+    },
+
+    added_cart_list(state,action) { //adding to cart if already exists increase the quantity by 1 else push to cart list array
+    
+      const itemExists = state.cart_list.some((ele) => ele.id === action.payload.id);
+    
+      if (itemExists) {
+        state.cart_list = state.cart_list.map((ele) => {
+          if (ele.id === action.payload.id) {
+            console.log("inside the if block",state.cart_list);
+            return { ...ele, quantity: ele.quantity + 1 };
+          }
+          return ele 
+        });
+      } else {
+        console.log("inside the else block",state.cart_list);
+        state.cart_list.push({ ...action.payload, quantity: 1});
+      }
+    },
+ 
   }
 })
 

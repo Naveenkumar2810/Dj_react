@@ -19,7 +19,7 @@ const Protected_Route = ({children}) => {
         // console.log(response.status)
       } catch (error) {
         console.log('Error fetching data:', error);
-        setTimeout(()=>setAuthenticate(true),[1000]) //redirecting to login page if access token doesn't found
+        setTimeout(()=>setAuthenticate(false),[1000]) //redirecting to login page if access token doesn't found
       }
     }
     check()

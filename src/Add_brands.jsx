@@ -40,10 +40,10 @@ const Add_brands = () => {
 
       const formData = new FormData()
       
-      formData.append('Type','Brands');
+      formData.append('RType','Brands');
       formData.append('Uniq_id',`${uuidv4()}_${fields.Hotel_name.replace(/\s+/g,'_')}`);
       formData.append('Hotel_name', fields.Hotel_name)
-      formData.append('Category', fields.Category);
+      formData.append('Type', fields.Category);
       formData.append('Description', fields.Description);
       formData.append('Brand_image', fields.Brand_image);
       formData.append('Food_image', fields.Food_image);
