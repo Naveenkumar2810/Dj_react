@@ -78,7 +78,7 @@ const Profilepage = () => {
     <div className='Profile w-full h-full flex justify-center items-center rounded-xl'>
       {!edit.edit_mode?
         <div className='Profile md:w-2/5 w-5/6 md:h-3/5 h-5/6 shadow-card-hl rounded-3xl flex flex-col gap-5 p-3'>
-           <div className='Image md:w-52 w-40 md:h-52 h-40 rounded-full mx-auto border-[1px] border-[#cbd5e1] overflow-hidden flex justify-center items-center'>
+           <div className='Image md:w-52 w-40 md:h-52 h-40 rounded-full mx-auto border-[6px] border-[#cbd5e1] overflow-hidden flex justify-center items-center'>
              <h1 className='font-semibold w-5/6 h-5/6 text-8xl place-content-center'>{prof.username.charAt(0)}</h1>
            </div>
            <div className='info-name flex flex-row shadow-card-hl rounded-xl bg-card'>

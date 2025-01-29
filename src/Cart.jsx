@@ -40,18 +40,22 @@ const Cart = () => {
     ]
 
     useEffect(()=>{
-        const get_quickadd = async ()=>{
-            const category = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Food_list',type:'filter_query',req:[{'Category':'icecream'}]},
-            {
-              withCredentials:true
-            })
 
-            const icecream_data = category.data.Category
-            setCart({...cart,quick_add_ice:icecream_data})
-            console.log('search ice cream data is',icecream_data)
-        }
-            get_quickadd()
+           const get_quickadd = async ()=> {
+              try{
+                const category = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Food_list',type:'filter_query',req:[{'Category':'icecream'}]},
+                  {
+                   withCredentials:true
+                  })
 
+                const icecream_data = category.data.Category
+                setCart({...cart,quick_add_ice:icecream_data})
+                console.log('search ice cream data is',icecream_data)
+               }catch(error){
+                console.log(error)
+            }
+          }
+          get_quickadd()
     },[])
 
 

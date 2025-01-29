@@ -16,7 +16,6 @@ const Protected_Route = ({children}) => {
       try {
         const response =await axios.post('http://127.0.0.1:8000/Api/check_authentication/',{},{withCredentials:true})
         response.status===200 && setAuthenticate(true)
-        // console.log(response.status)
       } catch (error) {
         console.log('Error fetching data:', error);
         setTimeout(()=>setAuthenticate(false),[1000]) //redirecting to login page if access token doesn't found

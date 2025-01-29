@@ -44,7 +44,6 @@ const Homepage = () => {
   };
 
   const keyword_order_list = async (option)=>{
-    console.log('selected option is',option)
     
     const category = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Food_list',type:'filter_query',req:[{'Category':option?option:'a'}]},
       {
@@ -52,7 +51,6 @@ const Homepage = () => {
       })
     
       const cate_data = category.data.Category
-      console.log('search bar data is',cate_data)
     
     dispatch(cate_list(cate_data))
     setsearch('')
@@ -74,11 +72,11 @@ const Homepage = () => {
                 </svg>
             </span>
            {search && 
-           <div className='search-results p-2 flex flex-row flex-wrap items-center justify-center w-full md:w-[calc(94%)] absolute h-72 md:top-14 top-12 left-0 rounded-xl bg-cus-white overflow-y-hidden'>
-               <h1 className='text-lg font-semibold items-center w-full mx-auto'>Search results by ...</h1>
+           <div className='z-40 search-results p-2 flex flex-row flex-wrap items-center justify-center w-full md:w-[calc(94%)] absolute h-72 md:top-14 top-12 left-0 rounded-xl bg-cus-white overflow-y-hidden'>
+             {resarr.food_list.length>0 || resarr.hotel_list.length>0 && <h1 className='text-lg font-semibold items-center w-full mx-auto'>Search results by ...</h1>}
              {resarr.food_list.length>0 || resarr.hotel_list.length>0 ?<div className='w-full h-full flex flex-row'>
                 <div className='Food w-1/2 h-full p-2 flex flex-col gap-2 rounded-xl overflow-y-scroll'>
-                  <h1 className='w-full text-base'>Dish</h1>
+                  <h1 className='w-full text-base'>Food</h1>
                   {resarr.food_list.map((ele,index)=>{
                   return (
                   <div key ={ele.id} onClick={()=>keyword_order_list(ele.Category)} className='w-full flex flex-row p-1 bg-card shadow-card-hl rounded-xl min-h-12 md:min-h-16 hover:cursor-pointer'>
@@ -93,15 +91,20 @@ const Homepage = () => {
                   <h1 className='w-full text-base'>Hotel</h1>
                   {resarr.hotel_list.map((ele,index)=>{
                   return (
-                  <div key={ele.id} className='w-full flex flex-row bg-card shadow-card-hl rounded-xl min-h-12 max-h-12 md:min-h-16'>
+                  <div key={ele.id} className='w-full flex bg-card shadow-card-hl rounded-xl min-h-12 max-h-12 md:min-h-16'>
                       {/* <img className='hidden md:block w-1/5 h-full rounded-xl' src='https://foodcategory.s3.eu-north-1.amazonaws.com/paneer_butter_masala.jpeg'/> */}
-                      <div className='w-full md:w-4/5 mx-auto flex justify-center items-center'>
-                        <h1 className='w-full h-1/2 md:text-sm text-xs text-center'>{ele.Hotel_name}</h1>
+                      <div className='w-full md:w-4/5 mx-auto flex flex-row gap-3 justify-center items-center'>
+                        <h1 className='w-[calc(50%)] h-2/5 mt-1 md:text-sm text-xs text-center'>{ele.Hotel_name}</h1>
+                        <span className='w-[calc(20%)] flex justify-center items-center'>
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-7 size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                           </svg>
+                        </span>
                         {/* <span className='w-full h-1/2 text-xs text-left block mt-2'>{ele.Food_name}</span> */}
                       </div> 
                   </div>)})}
                 </div>
-              </div>:<h1>No results</h1>}
+              </div>:<h1>No results try searching 'briyani' or 'cake'</h1>}
            </div>}
           </div>
           {/* <span className='menu-bar md:hidden w-auto flex items-center p-1 px-3 rounded-full bg-card shadow-card-hl mr-1'>
@@ -109,7 +112,7 @@ const Homepage = () => {
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>
           </span> */} 
-          <div className={`md:w-2/6 w-1/6 md:h-full ${menubar?'h-60':'h-10'} flex md:flex-row flex-col md:justify-evenly md:items-center gap-3 md:gap-0 rounded-3xl overflow-hidden md:overflow-visible bg-card px-1`} >
+          <div className={`z-50 md:w-2/6 w-1/6 md:h-full ${menubar?'h-60':'h-10'} flex md:flex-row flex-col md:justify-evenly md:items-center gap-3 md:gap-0 rounded-3xl bg-card overflow-hidden md:overflow-visible px-1 items-center`} >
               <span onClick={()=>{setmenuBar(!menubar)}}className='min-w-10 min-h-10 max-w-10 max-h-10 md:hidden cartpage flex justify-center items-center rounded-full'>
                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />

@@ -120,7 +120,7 @@ const Login = () => {
           
   return (
     <div className="border border-black w-full h-full flex justify-center items-center rounded-xl bg-[url('https://naveen28.s3.eu-north-1.amazonaws.com/signup_page.jpeg')] bg-cover bg-center p-6">
-      <form onSubmit={!form.type?(e)=>{Sign_up(e)}:(e)=>{authentication(e)}}  className="w-full md:w-2/5 h-auto mx-auto min-h-3/5  p-5 rounded-2xl bg-gray-900/70 backdrop-blur-signup overflow-hidden">
+      <form onSubmit={!form.type?(e)=>{Sign_up(e)}:(e)=>{authentication(e)}}  className="w-full sm:w-4/6 md:w-2/5 h-auto mx-auto min-h-3/5  p-5 rounded-2xl bg-gray-900/70 backdrop-blur-signup overflow-hidden">
         <h1 className='text-lg md:text-xl font-bold md:w-1/2 w-4/5 mx-auto text-center text-white'>{form.type?"LOGIN":"SIGNUP"}</h1>
         {!form.type?<div className="md:mb-5 md:mt-10 mb-2 mt-5 border-[1px] border-[rgba(255,255,255,0.25)] w-full md:w-5/6 mx-auto flex flex-row rounded-full">  
           <input onChange={(e)=>{set_cred(e)}} name='username' value={cred.username} type="text" id="username" className="w-[calc(80%)] shadow-sm text-white text-md block p-5 bg-transparent appearance-none focus:outline-none" placeholder='Enter user name'required/>

@@ -39,13 +39,11 @@ const slice = createSlice({
       if (itemExists) {
         state.cart_list = state.cart_list.map((ele) => {
           if (ele.id === action.payload.id) {
-            console.log("inside the if block",state.cart_list);
             return { ...ele, quantity: ele.quantity + 1 };
           }
           return ele 
         });
       } else {
-        console.log("inside the else block",state.cart_list);
         state.cart_list.push({ ...action.payload, quantity: 1});
       }
     },

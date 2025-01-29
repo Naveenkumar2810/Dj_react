@@ -7,6 +7,7 @@ import axios from 'axios'
 
 const Order_page = () => {
 
+
   const [records,setRecords] = useState(
     {
       hotels_list:[]
@@ -29,12 +30,9 @@ const Order_page = () => {
             {
               withCredentials:true
             })
-            
-            // console.log('hotel list',hotels.data)
-
             setRecords({hotels_list:restaurants.data})
         }
-     catch (error){
+      catch (error){
         console.log(error) }
 
       };
@@ -44,7 +42,8 @@ const Order_page = () => {
 
   return (
     <div className='w-full flex flex-col gap-5 h-auto md:p-4'>
-      <div className='offer-card w-full h-32 md:h-52 rounded-3xl bg-card shadow-card-hl'>
+      <div className='offer-card w-full h-32 md:h-52 rounded-3xl bg-card shadow-card-hl overflow-hidden relative'>
+        <h1 className='absolute md:top-10 top-2 md:left-10 left-2 w-2/5 h-3/5  md:text-3xl sm:text-base text-sm md:text-gray-400 text-white my-auto mt-6 ml-4 md:leading-8'>Place your first order <br/>and get flat 250 cashback 🥳</h1>
         <LazyLoadImage className='w-full h-32 md:h-52 object-cover rounded-3xl' src='https://foodcategory.s3.eu-north-1.amazonaws.com/card1.jpeg'/>
       </div>
       <div className='food-menu flex flex-col w-full h-auto p-3 rounded-3xl shadow-card-hl border-[3px] border-[#cbd5e1]'>
@@ -66,12 +65,12 @@ const Order_page = () => {
               </div>)})}
             </div> 
       </div>
-      <div className='similar  h-auto flex flex-col p-3 shadow-card-hl rounded-3xl border-[3px] border-[#cbd5e1]'>
+      <div className='similar h-auto flex flex-col p-3 shadow-card-hl rounded-3xl border-[3px] border-[#cbd5e1]'>
            <h1 className='text-left text-lg md:text-2xl font-medium'>Similar Restaurants</h1>
             <div className='category w-full flex flex-row h-auto md:gap-x-7 gap-4 md:p-5 p-3 overflow-x-scroll'>
               {records.hotels_list.map((ele)=> {
               return (
-                <div className='min-w-full md:min-w-[calc(25%-1.25rem)] h-44 md:h-60 bg-card shadow-card-hl rounded-2xl border-[2px] border-[#cbd5e1]'>
+                <div className='min-w-[calc(50%-0.2rem)] md:min-w-[calc(25%-1.25rem)] h-44 md:h-60 bg-card shadow-card-hl rounded-2xl border-[2px] border-[#cbd5e1]'>
                    <LazyLoadImage className='rounded-xl w-full h-full object-cover' src={ele.Brand_Image_url}/>
                 </div> 
               )})}
