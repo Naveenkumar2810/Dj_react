@@ -1,17 +1,18 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Profilepage = () => {
 
   const navigate =useNavigate()
 
+
   const [prof,setProf] = useState({
-    name:'Naveen kumar',
-    joined_date:'01/01/2025',
-    password_changed:'08/01/2025',
-    Default_address:'No.14 street'}
-  )
+  username:'',
+  mobile_number:'',
+  email:''
+  })
+  console.log(prof)
 
   const [edit,setEdit]=useState({
     edit_mode:false,
@@ -40,6 +41,25 @@ const Profilepage = () => {
       })
     }
   }
+
+  useEffect(()=>{
+
+    const fetch_details = async()=>{
+       try {
+          const user_details = await axios.post('http://127.0.0.1:8000/Api/user_details/',{},
+            {
+              withCredentials:true
+            })
+          console.log('User details',user_details.data)
+          const current_user_details = user_details.data
+          setProf({...current_user_details})
+        }
+      catch (error){
+        console.log(error)
+      }}
+      fetch_details()
+  },[])
+
   const deleteCookie = async () => {
     try {
       const cookie_clear = await axios.post('http://127.0.0.1:8000/Api/clear_cookie/',{},
@@ -51,48 +71,46 @@ const Profilepage = () => {
         }
     catch (error){
       console.log(error)
-    
       };
-    // navigate('/')
   };
 
   return (
     <div className='Profile w-full h-full flex justify-center items-center rounded-xl'>
       {!edit.edit_mode?
         <div className='Profile md:w-2/5 w-5/6 md:h-3/5 h-5/6 shadow-card-hl rounded-3xl flex flex-col gap-5 p-3'>
-           <div className='Image md:w-52 w-40 md:h-52 h-40 rounded-full mx-auto border border-black overflow-hidden'>
-            <img src='https://naveen28.s3.eu-north-1.amazonaws.com/b114bf08-c392-48c0-adee-cc3abdadfffd_Chicken_Briyani' className='w-full h-full'/>
+           <div className='Image md:w-52 w-40 md:h-52 h-40 rounded-full mx-auto border-[1px] border-[#cbd5e1] overflow-hidden flex justify-center items-center'>
+             <h1 className='font-semibold w-5/6 h-5/6 text-8xl place-content-center'>{prof.username.charAt(0)}</h1>
            </div>
-           <div className='info-name flex flex-row shadow-card-hl rounded-xl'>
-             <span className='w-1/2 h-14  text-sm md:text-lg px-3 font-bold flex items-center'>Name</span>
-             <span className='w-1/2 h-14  text-xs md:text-sm px-3 flex items-center justify-end'>{prof.name}</span>
-             <button onClick={()=>{edit_det('name')}} className='w-10 h-10 Add  rounded-full text-center px-1 mt-2 flex justify-center items-center'>
+           <div className='info-name flex flex-row shadow-card-hl rounded-xl bg-card'>
+             <span className='w-1/2 h-14  text-xs md:text-lg px-3 font-bold flex items-center'>Name</span>
+             <span className='w-1/2 h-14  text-xs md:text-sm px-3 flex items-center justify-end'>{prof.username}</span>
+             {/* <button onClick={()=>{edit_det('name')}} className='w-10 h-10 Add  rounded-full text-center px-1 mt-2 flex justify-center items-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                </svg>
-             </button>
+             </button> */}
            </div>
-           <div className='info-joined flex flex-row shadow-card-hl rounded-xl'>
+           {/* <div className='info-joined flex flex-row shadow-card-hl rounded-xl bg-card'>
              <span className='w-1/2 h-14  text-sm md:text-lg px-3 font-bold flex items-center'>Joined date</span>
              <span className='w-1/2 h-14  text-xs md:text-sm px-3 flex items-center justify-end'>{prof.joined_date}</span>
-           </div>
-           <div className='info-pass flex flex-row shadow-card-hl rounded-xl'>
-             <span className='w-1/2 h-14  text-sm md:text-lg px-3 font-bold flex items-center'>Password</span>
-             <span className='w-1/2 h-14  text-xs md:text-sm px-3 flex items-center justify-end'>{prof.password_changed}</span>
-             <button onClick={()=>{edit_det('password')}} className='w-10 h-10 Add  rounded-full text-center px-1 mt-2 flex justify-center items-center'>
+           </div>*/}
+           <div className='info-pass flex flex-row shadow-card-hl rounded-xl bg-card'>
+             <span className='w-1/2 h-14  text-xs md:text-lg px-3 font-bold flex items-center'>Email</span>
+             <span className='w-1/2 h-14  text-xs md:text-sm px-3 flex items-center justify-end'>{prof.email}</span>
+             {/* <button onClick={()=>{edit_det('password')}} className='w-10 h-10 Add  rounded-full text-center px-1 mt-2 flex justify-center items-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                </svg>
-             </button>
-           </div>
-           <div className='info-addr flex flex-row shadow-card-hl rounded-xl'>
-             <span className='w-1/2 h-14  text-sm md:text-lg px-3 font-bold flex items-center'>Address</span>
-             <span className='w-1/2 h-14  text-xs md:text-sm px-3 flex items-center justify-end'>{prof.Default_address.slice(0,12)}</span>
-             <button onClick={()=>{edit_det('Default_address')}} className='w-10 h-10 Add  rounded-full text-center px-1 mt-2 flex justify-center items-center'>
+             </button> */}
+           </div> 
+           <div className='info-addr flex flex-row shadow-card-hl rounded-xl bg-card'>
+             <span className='w-1/2 h-14  text-xs md:text-lg px-3 font-bold flex items-center'>Phone</span>
+             <span className='w-1/2 h-14  text-xs md:text-sm px-3 flex items-center justify-end'>{prof.mobile_number}</span>
+             {/* <button onClick={()=>{edit_det('Default_address')}} className='w-10 h-10 Add  rounded-full text-center px-1 mt-2 flex justify-center items-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                </svg>
-             </button>
+             </button> */}
            </div>
            <button onClick={()=>{deleteCookie()}} className='w-4/5 p-2 bg-red-500 rounded-full mx-auto'>Log out</button>
         </div>:

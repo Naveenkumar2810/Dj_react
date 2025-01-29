@@ -172,8 +172,8 @@ const Cart = () => {
                     <h1 className='heading font-semibold text-sm p-3 text-center '>Offers & Cash back</h1>
                     {card_offers.map((ele)=>{
                     return (
-                    <div className=' w-full h-16 flex flex-row rounded-2xl  flex-wrap p-2 border border-black'>
-                        <div className='image w-1/3 h-full border border-black'>
+                    <div className=' w-full h-16 flex flex-row rounded-2xl  flex-wrap p-2'>
+                        <div className='image w-1/3 h-full '>
                            <LazyLoadImage className='rounded-xl w-full h-full object-cover' src={ele.img}/>
                         </div>
                         <div className='w-2/3 flex flex-row flex-wrap p-1'>
@@ -191,7 +191,7 @@ const Cart = () => {
                     <button className='rounded-full bg-blue-500 hover:bg-blue-600 w-1/2 p-1'>Pay & order</button>
                 </div>
           </div>
-          <div className='hidden payment-offers row-span-4 col-span-2 p-2 md:flex flex-col gap-4 shadow-card-hl rounded-xl border border-black'>
+          <div className='hidden payment-offers row-span-4 col-span-2 p-2 md:flex flex-col gap-4 shadow-card-hl rounded-xl'>
                 <h1 className='heading font-semibold text-lg p-3 text-center '>Offers & Cash back</h1>
                 <div className='w-full h-3/5 flex flex-col gap-3'>
                     {card_offers.map((ele)=>{
@@ -230,13 +230,13 @@ const Cart = () => {
                 </div>
              </div>
              <div className='w-full h-1/2 flex flex-row rounded-2xl flex-wrap p-2  shadow-card-hl'>
-                <h1 className='w-full h-1/5 heading font-semibold text-center border border-black'>Address</h1>
-                <div className='image w-full h-4/5 border border-black p-2 flex flex-row justify-evenly'>
+                <h1 className='w-full h-1/5 heading font-semibold text-center'>Address</h1>
+                <div className='image w-full h-4/5 p-2 flex flex-row justify-evenly'>
                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-18">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                   </svg>
-                  <span className='w-3/5 h-full border border-black flex justify-center items-center'>Selected Address</span>
+                  <span className='w-3/5 h-full flex justify-center items-center'>Selected Address</span>
                 </div>
              </div>
              {/* <div className='w-[calc(49%-1rem)] h-1/2 flex flex-row rounded-2xl flex-wrap p-2 shadow-card-hl'>

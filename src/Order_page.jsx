@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {useSelector} from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { added_cart_list } from './App';
+import axios from 'axios'
 
 const Order_page = () => {
 
-  
+  const [records,setRecords] = useState(
+    {
+      hotels_list:[]
+    }
+  )
   const categorylist= useSelector((state)=>state.sel_list.cate_list)
   const dispatch = useDispatch();
 
@@ -14,6 +19,28 @@ const Order_page = () => {
   const cart_add = (ele)=>{
     dispatch(added_cart_list(ele))
   }
+
+  useEffect(() => {
+
+    const fetchRecords = async () => {
+      try {
+          
+          const restaurants = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Brand',type:'query'},
+            {
+              withCredentials:true
+            })
+            
+            // console.log('hotel list',hotels.data)
+
+            setRecords({hotels_list:restaurants.data})
+        }
+     catch (error){
+        console.log(error) }
+
+      };
+      fetchRecords()  
+  },[])
+    
 
   return (
     <div className='w-full flex flex-col gap-5 h-auto md:p-4'>
@@ -42,10 +69,13 @@ const Order_page = () => {
       <div className='similar  h-auto flex flex-col p-3 shadow-card-hl rounded-3xl border-[3px] border-[#cbd5e1]'>
            <h1 className='text-left text-lg md:text-2xl font-medium'>Similar Restaurants</h1>
             <div className='category w-full flex flex-row h-auto md:gap-x-7 gap-4 md:p-5 p-3 overflow-x-scroll'>
-                <div className='min-w-full md:min-w-[calc(25%-1.25rem)] h-44 md:h-60 bg-card shadow-card-hl rounded-2xl border-[2px] border-[#cbd5e1]'></div>
-                <div className='min-w-full md:min-w-[calc(25%-1.25rem)] h-44 md:h-60 bg-card shadow-card-hl rounded-2xl border-[2px] border-[#cbd5e1]'></div>
-                <div className='min-w-full md:min-w-[calc(25%-1.25rem)] h-44 md:h-60 bg-card shadow-card-hl rounded-2xl border-[2px] border-[#cbd5e1]'></div>
-                <div className='min-w-full md:min-w-[calc(25%-1.25rem)] h-44 md:h-60 bg-card shadow-card-hl rounded-2xl border-[2px] border-[#cbd5e1]'></div>     
+              {records.hotels_list.map((ele)=> {
+              return (
+                <div className='min-w-full md:min-w-[calc(25%-1.25rem)] h-44 md:h-60 bg-card shadow-card-hl rounded-2xl border-[2px] border-[#cbd5e1]'>
+                   <LazyLoadImage className='rounded-xl w-full h-full object-cover' src={ele.Brand_Image_url}/>
+                </div> 
+              )})}
+                 
             </div> 
       </div>
     </div>

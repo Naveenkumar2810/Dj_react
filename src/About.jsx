@@ -35,7 +35,7 @@ const About = () => {
             
             // console.log('hotel list',hotels.data)
 
-            setRecords({category_list:category.data,hotels_list:hotels.data})
+          setRecords({category_list:category.data,hotels_list:hotels.data})
         }
      catch (error){
         console.log(error) }
@@ -62,6 +62,7 @@ const About = () => {
   return (
     <div className='flex flex-col md:gap-7 gap-3 overflow-hidden md:p-4 h-auto w-full'>
         <div className='offer-card rounded-3xl bg-card shadow-card-hl h-auto w-full overflow-hidden'>
+          <h1 className></h1>
           <LazyLoadImage className='w-full h-24 md:h-52 object-cover' src='https://foodcategory.s3.eu-north-1.amazonaws.com/card1.jpeg'/>
         </div>
         <div className='choice flex flex-col w-full md:h-auto h-auto bg-card shadow-card-hl p-3 rounded-3xl'>

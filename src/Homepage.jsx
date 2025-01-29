@@ -65,8 +65,8 @@ const Homepage = () => {
   return (
     <div className='border border-black w-full h-full rounded-xl bg-cus-white p-3 md:p-3 scroll-smooth overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-400 '>
         <nav className='w-full md:w-[calc(98%)] mx-auto md:h-auto h-12 flex flex-row md:gap-8 py-2 mb-3 md:mt-0 relative bg-card shadow-card-hl rounded-full'>
-          <span onClick={()=> navigate('/homepage')}className='w-1/6 md:text-xl text-sm font-bold md:bg-card md:shadow-card-hl rounded-full px-1 md:px-3  ml-4 border border-black flex justify-center items-center'>Hurry</span>
-          <div className='rounded-full md:w-3/6 w-4/6 flex flex-row p-1 bg-card shadow-card-hl md:relative border border-black'>
+          <span onClick={()=> navigate('/homepage')}className='w-1/6 md:text-xl text-sm font-bold md:bg-card md:shadow-card-hl rounded-full px-1 md:px-3  ml-4 flex justify-center items-center'>Hurry</span>
+          <div className='rounded-full md:w-3/6 w-4/6 flex flex-row p-1 bg-card border-[1px] border-[#cbd5e1] md:shadow-card-hl md:relative'>
             <input onChange={(e)=> keyword_search(e)} className='w-[calc(96%)] text-xs md:text-base rounded-full h-full px-3 py-2 md:py-1 focus:outline-none' value={search} placeholder='Search...'></input>
             <span className='flex justify-center items-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-7 size-5">
@@ -74,9 +74,11 @@ const Homepage = () => {
                 </svg>
             </span>
            {search && 
-           <div className='search-results p-2 flex flex-row items-center justify-center w-full md:w-[calc(94%)] border border-black absolute h-72 md:top-14 top-12 left-0 rounded-xl bg-cus-white'>
+           <div className='search-results p-2 flex flex-row flex-wrap items-center justify-center w-full md:w-[calc(94%)] absolute h-72 md:top-14 top-12 left-0 rounded-xl bg-cus-white overflow-y-hidden'>
+               <h1 className='text-lg font-semibold items-center w-full mx-auto'>Search results by ...</h1>
              {resarr.food_list.length>0 || resarr.hotel_list.length>0 ?<div className='w-full h-full flex flex-row'>
                 <div className='Food w-1/2 h-full p-2 flex flex-col gap-2 rounded-xl overflow-y-scroll'>
+                  <h1 className='w-full text-base'>Dish</h1>
                   {resarr.food_list.map((ele,index)=>{
                   return (
                   <div key ={ele.id} onClick={()=>keyword_order_list(ele.Category)} className='w-full flex flex-row p-1 bg-card shadow-card-hl rounded-xl min-h-12 md:min-h-16 hover:cursor-pointer'>
@@ -88,6 +90,7 @@ const Homepage = () => {
                   </div>)})}
                 </div>
                 <div className='Hotel w-1/2 h-full mt-2 flex flex-col gap-2 rounded-xl overflow-y-scroll'>
+                  <h1 className='w-full text-base'>Hotel</h1>
                   {resarr.hotel_list.map((ele,index)=>{
                   return (
                   <div key={ele.id} className='w-full flex flex-row bg-card shadow-card-hl rounded-xl min-h-12 max-h-12 md:min-h-16'>
@@ -106,8 +109,8 @@ const Homepage = () => {
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>
           </span> */} 
-          <div className={`md:w-2/6 w-1/6 md:h-full h-28 flex md:flex-row flex-col md:justify-evenly justify-center items-center gap-3 md:gap-0 rounded-3xl overflow-hidden md:overflow-visible bg-card`} >
-              <span className='min-w-10 min-h-10 md:hidden cartpage flex justify-center items-center rounded-full'>
+          <div className={`md:w-2/6 w-1/6 md:h-full ${menubar?'h-60':'h-10'} flex md:flex-row flex-col md:justify-evenly md:items-center gap-3 md:gap-0 rounded-3xl overflow-hidden md:overflow-visible bg-card px-1`} >
+              <span onClick={()=>{setmenuBar(!menubar)}}className='min-w-10 min-h-10 max-w-10 max-h-10 md:hidden cartpage flex justify-center items-center rounded-full'>
                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                  </svg>
