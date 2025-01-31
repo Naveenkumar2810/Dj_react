@@ -50,7 +50,7 @@ const slice = createSlice({
 })
 
 export const {cate_list,added_cart_list,delete_cartlist} = slice.actions;
-export const backend_url ='http://13.60.189.83:8000/'
+export const backend_url ='http://13.60.192.130:8000/'
 
 
 const store = configureStore({
@@ -75,8 +75,8 @@ function App() {
               <Route path="Orderpage" element={<Order_page/>}/>
               <Route path="Cartpage" element={<Cart/>}/>
               <Route path="Profilepage" element={<Profilepage/>}/>
-              <Route path="Addrec" element={<Addrec/>}/>
-              <Route path="Add_brands" element={<Add_brands/>}/>
+              {/* <Route path="Addrec" element={<Addrec/>}/>
+              <Route path="Add_brands" element={<Add_brands/>}/> */}
             </Route>
          </Routes>
        </div>
