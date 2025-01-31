@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { backend_url } from './App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
@@ -14,7 +14,7 @@ const Protected_Route = ({children}) => {
   useEffect(()=> {
     const check = async ()=>{
       try {
-        const response =await axios.post('http://127.0.0.1:8000/Api/check_authentication/',{},{withCredentials:true})
+        const response =await axios.post(backend_url+'/Api/check_authentication/',{},{withCredentials:true})
         response.status===200 && setAuthenticate(true)
       } catch (error) {
         console.log('Error fetching data:', error);
@@ -34,7 +34,7 @@ const Protected_Route = ({children}) => {
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
         </svg>
       </span>
-      <span className='font-semibold text-lg md:text-xl'>Session expired .... Redirecting to login</span>
+      <span className='font-semibold text-sm md:text-xl'>Session expired .... Redirecting to login</span>
     </div>;
   } else if (authenticate===null) {
     return <div className='w-full h-full  bg-card text-black flex flex-row gap-3 justify-center items-center'>

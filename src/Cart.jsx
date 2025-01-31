@@ -1,7 +1,7 @@
 import {React,useState,useEffect} from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector,useDispatch } from 'react-redux';
-import { added_cart_list,delete_cartlist } from './App';
+import { added_cart_list,delete_cartlist,backend_url } from './App';
 import axios from 'axios';
 
 
@@ -43,14 +43,13 @@ const Cart = () => {
 
            const get_quickadd = async ()=> {
               try{
-                const category = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Food_list',type:'filter_query',req:[{'Category':'icecream'}]},
+                const category = await axios.post(backend_url+'/Api/get_solr_query/', {coll_name:'Food_list',type:'filter_query',req:[{'Category':'icecream'}]},
                   {
                    withCredentials:true
                   })
 
                 const icecream_data = category.data.Category
                 setCart({...cart,quick_add_ice:icecream_data})
-                console.log('search ice cream data is',icecream_data)
                }catch(error){
                 console.log(error)
             }

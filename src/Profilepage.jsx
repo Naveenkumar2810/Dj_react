@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { backend_url } from './App'
 
 const Profilepage = () => {
 
@@ -46,11 +47,10 @@ const Profilepage = () => {
 
     const fetch_details = async()=>{
        try {
-          const user_details = await axios.post('http://127.0.0.1:8000/Api/user_details/',{},
+          const user_details = await axios.post(backend_url+'/Api/user_details/',{},
             {
               withCredentials:true
             })
-          console.log('User details',user_details.data)
           const current_user_details = user_details.data
           setProf({...current_user_details})
         }
@@ -62,7 +62,7 @@ const Profilepage = () => {
 
   const deleteCookie = async () => {
     try {
-      const cookie_clear = await axios.post('http://127.0.0.1:8000/Api/clear_cookie/',{},
+      const cookie_clear = await axios.post(backend_url+'/Api/clear_cookie/',{},
           {
             withCredentials:true
           })

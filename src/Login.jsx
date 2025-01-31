@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { backend_url } from './App';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -35,7 +35,7 @@ const Login = () => {
      switch(name) {
     
       case "username":
-         setCred({...cred,[name]:value,username_color:value.length>3?"text-green-400":"text-red-500"})
+         setCred({...cred,[name]:value,username_color:value.length>3?"text-green-400":"text-red-600"})
          break
       case "mobile_number":
          const is_num =/^\d+$/.test(value)
@@ -45,7 +45,7 @@ const Login = () => {
          setCred({...cred,[name]:value,password_color:value.length>7?"text-green-400":"text-red-600"})
          break
       case "repeat_password":
-        setCred({...cred,[name]:value,rep_password_color:value===cred.password?"text-green-400":"text-red-600"})
+        setCred({...cred,[name]:value,rep_password_color:(value===cred.password && value.length>7)?"text-green-400":"text-red-600"})
         break
       default:
         return null
@@ -60,7 +60,7 @@ const Login = () => {
   const authentication = async (e) => {  //function handling login 
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/Api/token/', 
+      const response = await axios.post(backend_url+'/Api/token/', 
           {
               "mobile_number":cred.mobile_number,
               "password":cred.password
@@ -71,17 +71,31 @@ const Login = () => {
           navigate('/homepage')
         }
     catch (error){
-        // console.log(error.response.data.error);
+        console.log(error);
         setform({...form,response:false,msg:error.response.data.error})
+        // setform({...form,response:false,msg:"Please check Mobile number and password"})
         setTimeout(()=>setform({...form,msg:null}),[1500])
       };
       
       }
 
+  const check_signup_credentials = (e) =>{ // cheking all provided details are correct before user creation
+    e.preventDefault()
+  
+    if(cred.username_color ==='text-green-400' && cred.mobile_number_color ==='text-green-400' && cred.password_color ==='text-green-400' && cred.rep_password_color==='text-green-400') {
+      Sign_up(e)
+    }
+    else{
+      setform({...form,msg:'Provided details are not valid'})
+      setTimeout(()=>setform({...form,response:false,msg:null}),[2500])
+    }
+   
+  }
+
   const Sign_up = async (e) => {  //function handle creating new user 
       e.preventDefault();
       try {
-        const response = await axios.post('http://127.0.0.1:8000/Api/Signup/', 
+        const response = await axios.post(backend_url+'/Api/Signup/', 
             {
                 "username":cred.username,
                 'email':'naveen@gmail.com',
@@ -108,9 +122,11 @@ const Login = () => {
                     rep_password_color:'text-[rgba(255,255,255,0.8)]'
                   }
                 )
-              },[2000])}
+              },[2000])
+            }
           }
         catch (error){
+          console.log(error)
           setform({...form,response:false,msg:error.response.data.mobile_number[0]})
           setTimeout(()=>{
             setform({...form,msg:null})},[1500])
@@ -120,7 +136,7 @@ const Login = () => {
           
   return (
     <div className="border border-black w-full h-full flex justify-center items-center rounded-xl bg-[url('https://naveen28.s3.eu-north-1.amazonaws.com/signup_page.jpeg')] bg-cover bg-center p-6">
-      <form onSubmit={!form.type?(e)=>{Sign_up(e)}:(e)=>{authentication(e)}}  className="w-full sm:w-4/6 md:w-2/5 h-auto mx-auto min-h-3/5  p-5 rounded-2xl bg-gray-900/70 backdrop-blur-signup overflow-hidden">
+      <form onSubmit={!form.type?(e)=>{check_signup_credentials(e)}:(e)=>{authentication(e)}}  className="w-full sm:w-4/6 md:w-2/5 h-auto mx-auto min-h-3/5  p-5 rounded-2xl bg-gray-900/70 backdrop-blur-signup overflow-hidden">
         <h1 className='text-lg md:text-xl font-bold md:w-1/2 w-4/5 mx-auto text-center text-white'>{form.type?"LOGIN":"SIGNUP"}</h1>
         {!form.type?<div className="md:mb-5 md:mt-10 mb-2 mt-5 border-[1px] border-[rgba(255,255,255,0.25)] w-full md:w-5/6 mx-auto flex flex-row rounded-full">  
           <input onChange={(e)=>{set_cred(e)}} name='username' value={cred.username} type="text" id="username" className="w-[calc(80%)] shadow-sm text-white text-md block p-5 bg-transparent appearance-none focus:outline-none" placeholder='Enter user name'required/>

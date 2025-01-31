@@ -3,7 +3,7 @@ import axios from 'axios'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { cate_list } from './App';
+import { cate_list,backend_url } from './App';
 
 const About = () => {
 
@@ -21,14 +21,14 @@ const About = () => {
     const fetchRecords = async () => {
       try {
         
-        const category = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Food_category',type:'query'},
+        const category = await axios.post(backend_url+'/Api/get_solr_query/', {coll_name:'Food_category',type:'query'},
           {
             withCredentials:true
           })
           
           // console.log('catrgory data is ',category.data)
           
-          const hotels = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Brand',type:'query'},
+          const hotels = await axios.post(backend_url+'/Api/get_solr_query/', {coll_name:'Brand',type:'query'},
             {
               withCredentials:true
             })
@@ -47,7 +47,7 @@ const About = () => {
   const sel_option = async (filter_field,option)=>{
 
     try {
-      const filter_data = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Food_list',type:'filter_query',req:[{[filter_field]:option?option:'cake'}]},
+      const filter_data = await axios.post(backend_url+'/Api/get_solr_query/', {coll_name:'Food_list',type:'filter_query',req:[{[filter_field]:option?option:'cake'}]},
         {
           withCredentials:true
         })
@@ -65,8 +65,8 @@ const About = () => {
   return (
     <div className='flex flex-col md:gap-7 gap-3 overflow-hidden md:p-4 h-auto w-full'>
         <div className='offer-card rounded-3xl bg-card shadow-card-hl h-auto w-full overflow-hidden relative '>
-          <h1 className='absolute md:top-10 top-2 md:left-10 left-2 w-2/5 h-3/5  md:text-6xl text-xl md:text-gray-400 text-white my-auto mt-2'>Flat 50% off
-           <span className='block w-full h-12 md:text-base text-[8px] mt-2 leading-4 md:text-gray-400 text-white'>upto Rs.250 on orders above 699 on your first order.</span>
+          <h1 className='absolute md:top-10 top-2 md:left-10 left-2 w-2/5 h-3/5  md:text-6xl text-xl md:text-gray-400 text-white my-auto mt-2 font-semibold'>Flat 50% off
+           <span className='block w-full h-12 md:text-base text-[8px] mt-2 leading-4 md:text-gray-400 text-white font-semibold'>upto Rs.250 on orders above 699 on your first order.</span>
           </h1>
           <LazyLoadImage className='w-full h-24 md:h-52 object-cover' src='https://foodcategory.s3.eu-north-1.amazonaws.com/card1.jpeg'/>
         </div>
@@ -107,9 +107,9 @@ const About = () => {
                    <LazyLoadImage className='w-full h-full object-cover' src={ele.Food_Image_url}/>
                 </div>
                 <div className='w-full h-1/4 p-1 flex flex-row flex-wrap px-1'>
-                  <h1 className='font-semibold md:text-lg text-sm text-left w-[calc(66%-1rem)] h-1/2 mt-1'>{ele.Hotel_name.charAt(0).toUpperCase() + ele.Hotel_name.slice(1)}</h1>
+                  <h1 className='font-semibold md:text-lg text-sm text-left w-[calc(65%-1rem)] h-1/2 mt-1 ml-2'>{ele.Hotel_name.charAt(0).toUpperCase() + ele.Hotel_name.slice(1)}</h1>
                   <span className='md:text-sm text-xs w-1/3 mt-1 h-1/2 text-right'>Rating</span>
-                  <span className='md:text-sm text-xs text-left mt-1 w-[calc(66%-1rem)]'>{ele.Description}</span>
+                  <span className='md:text-sm text-xs text-left mt-1 w-[calc(65%-1rem)] ml-2'>{ele.Description}</span>
                   <span className='w-1/3 md:text-sm text-xs mt-1 text-right'>25 min</span>
                 </div> 
               </div>)

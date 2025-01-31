@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {useSelector} from 'react-redux'
 import { useDispatch } from 'react-redux';
-import { added_cart_list } from './App';
+import { added_cart_list,backend_url } from './App';
 import axios from 'axios'
 
 const Order_page = () => {
@@ -13,7 +13,8 @@ const Order_page = () => {
       hotels_list:[]
     }
   )
-  const categorylist= useSelector((state)=>state.sel_list.cate_list)
+  const selected_list = useSelector((state)=>state.sel_list.cate_list)
+  const categorylist = selected_list ? selected_list : []
   const dispatch = useDispatch();
 
   
@@ -26,7 +27,7 @@ const Order_page = () => {
     const fetchRecords = async () => {
       try {
           
-          const restaurants = await axios.post('http://127.0.0.1:8000/Api/get_solr_query/', {coll_name:'Brand',type:'query'},
+          const restaurants = await axios.post(backend_url+'/Api/get_solr_query/', {coll_name:'Brand',type:'query'},
             {
               withCredentials:true
             })
@@ -43,7 +44,7 @@ const Order_page = () => {
   return (
     <div className='w-full flex flex-col gap-5 h-auto md:p-4'>
       <div className='offer-card w-full h-32 md:h-52 rounded-3xl bg-card shadow-card-hl overflow-hidden relative'>
-        <h1 className='absolute md:top-10 top-2 md:left-10 left-2 w-2/5 h-3/5  md:text-3xl sm:text-base text-sm md:text-gray-400 text-white my-auto mt-6 ml-4 md:leading-8'>Place your first order <br/>and get flat 250 cashback 🥳</h1>
+        <h1 className='absolute md:top-10 top-2 md:left-10 left-2 w-2/5 h-3/5  md:text-3xl sm:text-base text-sm md:text-gray-400 text-white my-auto mt-6 ml-4 md:leading-8 font-semibold'>Place your first order <br/>and get flat 250 cashback 🥳</h1>
         <LazyLoadImage className='w-full h-32 md:h-52 object-cover rounded-3xl' src='https://foodcategory.s3.eu-north-1.amazonaws.com/card1.jpeg'/>
       </div>
       <div className='food-menu flex flex-col w-full h-auto p-3 rounded-3xl shadow-card-hl border-[3px] border-[#cbd5e1]'>

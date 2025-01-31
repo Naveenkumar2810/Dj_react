@@ -1,6 +1,4 @@
 import './App.css';
-// import axios from 'axios';
-// import {useState,useEffect} from 'react'
 import Login from './Login';
 import Homepage from './Homepage';
 import Protected_Route from './Protected_Route';
@@ -52,6 +50,7 @@ const slice = createSlice({
 })
 
 export const {cate_list,added_cart_list,delete_cartlist} = slice.actions;
+export const backend_url ='http://13.60.189.83:8000/'
 
 
 const store = configureStore({
@@ -59,10 +58,11 @@ const store = configureStore({
     sel_list:slice.reducer
   }
 })
+
+
  
 
 function App() {
-
 
   return (
     <Provider store ={store}>
