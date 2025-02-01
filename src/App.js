@@ -50,7 +50,7 @@ const slice = createSlice({
 })
 
 export const {cate_list,added_cart_list,delete_cartlist} = slice.actions;
-export const backend_url ='http://13.60.192.130:8000/'
+export const backend_url ='https://13.60.192.130'
 
 
 const store = configureStore({
