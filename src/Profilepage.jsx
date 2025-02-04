@@ -13,7 +13,6 @@ const Profilepage = () => {
   mobile_number:'',
   email:''
   })
-  console.log(prof)
 
   const [edit,setEdit]=useState({
     edit_mode:false,
@@ -28,7 +27,6 @@ const Profilepage = () => {
   const change = (e)=>{
     const {name}=e.target;
     if (name==='input'){
-      console.log('called by input')
       setEdit({...edit,new_val:e.target.value})
     }
     else {
@@ -55,7 +53,6 @@ const Profilepage = () => {
           setProf({...current_user_details})
         }
       catch (error){
-        console.log(error)
       }}
       fetch_details()
   },[])
@@ -66,11 +63,9 @@ const Profilepage = () => {
           {
             withCredentials:true
           })
-      console.log('cookie clear',cookie_clear.message)
       navigate('/')
         }
     catch (error){
-      console.log(error)
       };
   };
 

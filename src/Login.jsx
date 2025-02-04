@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { backend_url } from './App';
 import { useNavigate } from 'react-router-dom';
+// import {https} from "https"; 
 
 
 const Login = () => {
@@ -59,6 +60,7 @@ const Login = () => {
 
   const authentication = async (e) => {  //function handling login 
     e.preventDefault();
+
     try {
       const response = await axios.post(backend_url+'/Api/token/', 
           {
@@ -71,9 +73,8 @@ const Login = () => {
           navigate('/homepage')
         }
     catch (error){
-        console.log(error);
         setform({...form,response:false,msg:error.response.data.error})
-        // setform({...form,response:false,msg:"Please check Mobile number and password"})
+        // setform({...form,response:false,msg:""})
         setTimeout(()=>setform({...form,msg:null}),[1500])
       };
       
@@ -103,7 +104,8 @@ const Login = () => {
                 "password":cred.password
             },
             {
-              withCredentials:true
+              withCredentials:true,
+              validateStatus: (status) => true,
             })
             // console.log(response.status, typeof response.status)
             if (response.status===201) {
@@ -126,7 +128,6 @@ const Login = () => {
             }
           }
         catch (error){
-          console.log(error)
           setform({...form,response:false,msg:error.response.data.mobile_number[0]})
           setTimeout(()=>{
             setform({...form,msg:null})},[1500])

@@ -39,7 +39,7 @@ const Homepage = () => {
     }
 
     catch (error){
-      console.log(error) }
+   }
 
   };
 
@@ -58,7 +58,7 @@ const Homepage = () => {
       
       navigate('/homepage/orderpage')}
     catch (error){
-      console.log(error)
+      
     }
   }
 

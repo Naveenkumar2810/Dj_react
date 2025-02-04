@@ -50,7 +50,7 @@ const slice = createSlice({
 })
 
 export const {cate_list,added_cart_list,delete_cartlist} = slice.actions;
-export const backend_url ='https://13.60.192.130'
+export const backend_url ='https://wizardbackend.site'
 
 
 const store = configureStore({

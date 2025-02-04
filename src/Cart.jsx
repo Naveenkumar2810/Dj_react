@@ -51,7 +51,7 @@ const Cart = () => {
                 const icecream_data = category.data.Category
                 setCart({...cart,quick_add_ice:icecream_data})
                }catch(error){
-                console.log(error)
+                
             }
           }
           get_quickadd()
