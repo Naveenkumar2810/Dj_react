@@ -10,6 +10,7 @@ import Cart from './Cart';
 import Profilepage from './Profilepage';
 import Addrec from './Addrec';
 import Add_brands from './Add_brands';
+import Pagenotfound from './Pagenotfound';
 import {configureStore,createSlice} from '@reduxjs/toolkit'
 import {Provider} from 'react-redux'
 
@@ -51,6 +52,7 @@ const slice = createSlice({
 
 export const {cate_list,added_cart_list,delete_cartlist} = slice.actions;
 export const backend_url ='https://wizardbackend.site'
+// export const backend_url ='http://localhost:8000'
 
 
 const store = configureStore({
@@ -69,6 +71,7 @@ function App() {
         <div className="App w-screen h-screen md:px-36 md:py-4 bg-[rgb(39,41,45)] font-poppins">
           <Routes>
             <Route index element={<Login/>}/>
+            <Route path="*" element={<Pagenotfound/>}/>
             <Route path="/homepage" element={<Protected_Route><Homepage/></Protected_Route>}>
               <Route index element={<About/>}/>
               <Route path="contactpage" element={<Contact/>}/>
@@ -77,7 +80,7 @@ function App() {
               <Route path="Profilepage" element={<Profilepage/>}/>
               {/* <Route path="Addrec" element={<Addrec/>}/>
               <Route path="Add_brands" element={<Add_brands/>}/> */}
-            </Route>
+            </Route> 
          </Routes>
        </div>
     </Provider>

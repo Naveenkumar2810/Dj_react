@@ -73,6 +73,7 @@ const Login = () => {
           navigate('/homepage')
         }
     catch (error){
+        console.log(error)
         setform({...form,response:false,msg:error.response.data.error})
         // setform({...form,response:false,msg:""})
         setTimeout(()=>setform({...form,msg:null}),[1500])
