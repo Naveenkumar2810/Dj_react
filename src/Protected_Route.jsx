@@ -26,7 +26,7 @@ const Protected_Route = ({children}) => {
   // console.log(authenticate)
   if (authenticate===false) {
     // <Navigate to="/login"/>;
-    setTimeout(()=>navigate('/'),[2000])
+    setTimeout(()=>navigate('/Food_order'),[2000])
 
     return <div className='w-full h-full bg-card text-black flex flex-row gap-3 justify-center items-center'>
       <span className='text-red-500'>
