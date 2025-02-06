@@ -18,7 +18,7 @@ const Protected_Route = ({children}) => {
         response.status===200 && setAuthenticate(true)
       } catch (error) {
         console.log('Error fetching data:', error);
-        setTimeout(()=>setAuthenticate(false),[1000]) //redirecting to login page if access token doesn't found
+        setTimeout(()=>setAuthenticate(true),[1000]) //redirecting to login page if access token doesn't found
       }
     }
     check()
@@ -26,7 +26,7 @@ const Protected_Route = ({children}) => {
   // console.log(authenticate)
   if (authenticate===false) {
     // <Navigate to="/login"/>;
-    setTimeout(()=>navigate('/Food_order'),[2000])
+    setTimeout(()=>navigate('/'),[2000])
 
     return <div className='w-full h-full bg-card text-black flex flex-row gap-3 justify-center items-center'>
       <span className='text-red-500'>

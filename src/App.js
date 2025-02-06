@@ -51,8 +51,8 @@ const slice = createSlice({
 })
 
 export const {cate_list,added_cart_list,delete_cartlist} = slice.actions;
-// export const backend_url ='https://wizardbackend.site'
-export const backend_url ='http://localhost:8000'
+export const backend_url ='https://wizardbackend.site'
+// export const backend_url ='http://localhost:8000'
 
 
 const store = configureStore({
@@ -70,9 +70,7 @@ function App() {
     <Provider store ={store}>
         <div className="App w-screen h-screen md:px-36 md:py-4 bg-[rgb(39,41,45)] font-poppins">
           <Routes>
-            <Route path='/' element={<Login/>}/>
-            <Route path='/Food_order' element={<Login/>}/>
-            <Route path='Food_order/' element={<Login/>}/>
+            <Route index element={<Login/>}/>
             <Route path="*" element={<Pagenotfound/>}/>
             <Route path="/homepage" element={<Protected_Route><Homepage/></Protected_Route>}>
               <Route index element={<About/>}/>
@@ -80,8 +78,8 @@ function App() {
               <Route path="Orderpage" element={<Order_page/>}/>
               <Route path="Cartpage" element={<Cart/>}/>
               <Route path="Profilepage" element={<Profilepage/>}/>
-              {/* <Route path="Addrec" element={<Addrec/>}/>
-              <Route path="Add_brands" element={<Add_brands/>}/> */}
+              <Route path="Addrec" element={<Addrec/>}/>
+              <Route path="Add_brands" element={<Add_brands/>}/>
             </Route> 
          </Routes>
        </div>
