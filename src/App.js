@@ -70,7 +70,7 @@ function App() {
     <Provider store ={store}>
         <div className="App w-screen h-screen md:px-36 md:py-4 bg-[rgb(39,41,45)] font-poppins">
           <Routes>
-            <Route path="Food_order" element={<Login/>}/>
+            <Route index element={<Login/>}/>
             <Route path="*" element={<Pagenotfound/>}/>
             <Route path="/homepage" element={<Protected_Route><Homepage/></Protected_Route>}>
               <Route index element={<About/>}/>

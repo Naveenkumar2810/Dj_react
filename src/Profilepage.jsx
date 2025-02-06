@@ -63,7 +63,7 @@ const Profilepage = () => {
           {
             withCredentials:true
           })
-      navigate('/Food_order')
+      navigate('/')
         }
     catch (error){
       };
