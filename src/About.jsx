@@ -64,13 +64,13 @@ const About = () => {
 
   return (
     <div className='flex flex-col md:gap-7 gap-3 overflow-hidden md:p-4 h-auto w-full'>
-        <div className='offer-card rounded-3xl bg-card shadow-card-hl h-auto w-full overflow-hidden relative '>
+        <div className='offer-card rounded-3xl md:bg-card bg-white shadow-card-hl h-auto w-full overflow-hidden relative '>
           <h1 className='absolute md:top-10 top-2 md:left-10 left-2 w-2/5 h-3/5  md:text-6xl text-xl md:text-gray-400 text-white my-auto mt-2 font-semibold'>Flat 50% off
            <span className='block w-full h-12 md:text-base text-[8px] mt-2 leading-4 md:text-gray-400 text-white font-semibold'>upto Rs.250 on orders above 699 on your first order.</span>
           </h1>
           <LazyLoadImage className='w-full h-24 md:h-52 object-cover' src='https://foodcategory.s3.eu-north-1.amazonaws.com/card1.jpeg'/>
         </div>
-        <div className='choice flex flex-col w-full md:h-auto h-auto bg-card shadow-card-hl p-3 rounded-3xl'>
+        <div className='choice flex flex-col w-full md:h-auto h-auto md:bg-card bg-white shadow-card-hl p-3 rounded-3xl'>
             <h1 className='text-left text-lg md:text-xl font-medium'>Categories for you</h1>
             <div className='category flex flex-row md:gap-16 gap-6 md:p-5 p-2 overflow-x-scroll h-auto scroll-smooth scrollbar-none'>
             {records.category_list.map((ele)=>{
@@ -83,7 +83,7 @@ const About = () => {
               })}
             </div>
         </div>
-        <div className='Brands flex flex-col w-full md:h-auto h-auto bg-card shadow-card-hl p-3 rounded-3xl'>
+        <div className='Brands flex flex-col w-full md:h-auto h-auto md:bg-card bg-white shadow-card-hl p-3 rounded-3xl'>
             <h1 className='text-left text-lg md:text-xl font-medium'>Brands for you</h1>
             {/* <div className='category flex flex-row gap-12 md:p-5 p-2 overflow-x-scroll h-auto'> */}
             <div className='category flex flex-row md:gap-16 gap-6 md:p-5 p-2 overflow-x-scroll h-auto scroll-smooth scrollbar-none'>

@@ -42,6 +42,7 @@ const Addrec = () => {
       {label:'Fried chicken',value:'friedchicken'},
       {label:'Gravy',value:'gravy'},
       {label:'Noodles',value:'noodles'},
+      {label:'Breakfast',value:'Breakfast'},
       {label:'Roti',value:'roti'},
       {label:'Cool drinks',value:'drink'}, 
     ]

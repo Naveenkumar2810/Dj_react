@@ -1,7 +1,7 @@
 {
   "name": "food_ordering_app",
   "version": "0.1.0",
-  "homepage": "https://Naveenkumar2810.github.io/Dj_react",
+  "homepage": "https://Naveenkumar2810.github.io/Food_order",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
